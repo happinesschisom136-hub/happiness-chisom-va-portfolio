@@ -1,0 +1,844 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happiness Chisom | Virtual Assistant</title>
+
+<style>
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  background: #f8f7f4;
+  color: #171717;
+  overflow-x: hidden;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 100;
+  padding: 22px 6%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(248,247,244,0.82);
+  backdrop-filter: blur(14px);
+}
+
+.logo {
+  font-size: 18px;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+}
+
+.nav-links {
+  display: flex;
+  gap: 28px;
+  font-size: 14px;
+}
+
+.nav-links a {
+  opacity: 0.7;
+  transition: 0.3s;
+}
+
+.nav-links a:hover {
+  opacity: 1;
+}
+
+section {
+  padding: 110px 7%;
+}
+
+.hero {
+  min-height: 100vh;
+  padding-top: 130px;
+  display: grid;
+  grid-template-columns: 1fr 0.8fr;
+  align-items: center;
+  gap: 40px;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-text {
+  position: relative;
+  z-index: 5;
+  max-width: 680px;
+}
+
+.eyebrow {
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  margin-bottom: 24px;
+  opacity: 0.55;
+}
+
+.hero h1 {
+  font-size: clamp(54px, 8vw, 105px);
+  line-height: 0.9;
+  letter-spacing: -6px;
+  margin-bottom: 28px;
+}
+
+.hero h1 span {
+  display: block;
+}
+
+.hero-subtitle {
+  font-size: clamp(20px, 2.4vw, 30px);
+  line-height: 1.25;
+  max-width: 600px;
+  margin-bottom: 20px;
+}
+
+.hero-description {
+  max-width: 540px;
+  line-height: 1.7;
+  opacity: 0.65;
+  margin-bottom: 34px;
+}
+
+.buttons {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.btn {
+  padding: 15px 23px;
+  border-radius: 100px;
+  border: 1px solid #171717;
+  font-size: 14px;
+  transition: 0.3s;
+}
+
+.btn.primary {
+  background: #171717;
+  color: white;
+}
+
+.btn:hover {
+  transform: translateY(-3px);
+}
+
+.hero-visual {
+  height: 560px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.orb {
+  position: absolute;
+  width: 410px;
+  height: 410px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #ded9ff, #f2d8e8);
+  filter: blur(0px);
+  animation: orbMove 7s ease-in-out infinite;
+}
+
+.hero-video {
+  position: relative;
+  z-index: 3;
+  width: min(230px, 48%);
+  height: 460px;
+  object-fit: contain;
+  object-position: center;
+  border-radius: 20px;
+  animation: characterFloat 5s ease-in-out infinite;
+}
+
+.floating-card {
+  position: absolute;
+  z-index: 5;
+  padding: 14px 17px;
+  background: rgba(255,255,255,0.82);
+  backdrop-filter: blur(14px);
+  border: 1px solid rgba(0,0,0,0.08);
+  border-radius: 15px;
+  box-shadow: 0 15px 45px rgba(0,0,0,0.08);
+  font-size: 12px;
+}
+
+.card-one {
+  top: 90px;
+  right: 5px;
+  animation: cardFloat 4s ease-in-out infinite;
+}
+
+.card-two {
+  bottom: 95px;
+  left: 0;
+  animation: cardFloat 5s ease-in-out infinite reverse;
+}
+
+@keyframes characterFloat {
+  0%,100% { transform: translateY(5px); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes orbMove {
+  0%,100% { transform: scale(1) rotate(0deg); }
+  50% { transform: scale(1.07) rotate(8deg); }
+}
+
+@keyframes cardFloat {
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(-9px); }
+}
+
+.section-label {
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  font-size: 12px;
+  opacity: 0.5;
+  margin-bottom: 18px;
+}
+
+.section-title {
+  font-size: clamp(38px, 6vw, 75px);
+  letter-spacing: -3px;
+  line-height: 1;
+  margin-bottom: 30px;
+}
+
+.about {
+  background: #171717;
+  color: white;
+}
+
+.about-content {
+  max-width: 900px;
+}
+
+.about p {
+  font-size: clamp(20px, 3vw, 32px);
+  line-height: 1.45;
+  opacity: 0.82;
+}
+
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px;
+}
+
+.service {
+  min-height: 230px;
+  padding: 30px;
+  border: 1px solid #dedbd5;
+  border-radius: 22px;
+  background: white;
+  transition: 0.4s;
+}
+
+.service:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 25px 60px rgba(0,0,0,0.08);
+}
+
+.service-number {
+  font-size: 13px;
+  opacity: 0.4;
+  margin-bottom: 55px;
+}
+
+.service h3 {
+  font-size: 24px;
+  margin-bottom: 12px;
+}
+
+.service p {
+  line-height: 1.6;
+  opacity: 0.6;
+}
+
+.work {
+  background: #eeeae3;
+}
+
+.work-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.work-card {
+  min-height: 310px;
+  background: white;
+  border-radius: 24px;
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+  position: relative;
+}
+
+.work-card h3 {
+  font-size: 28px;
+}
+
+.work-card p {
+  max-width: 430px;
+  line-height: 1.6;
+  opacity: 0.6;
+}
+
+.mock-interface {
+  margin-top: 20px;
+  border: 1px solid #ddd;
+  border-radius: 14px;
+  padding: 18px;
+  background: #fafafa;
+}
+
+.mock-line {
+  height: 9px;
+  background: #ddd;
+  border-radius: 20px;
+  margin-bottom: 10px;
+}
+
+.mock-line.short {
+  width: 55%;
+}
+
+.tools-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.tool {
+  padding: 13px 18px;
+  border: 1px solid #d8d4cd;
+  border-radius: 100px;
+  background: white;
+  font-size: 14px;
+}
+
+.why {
+  display: grid;
+  grid-template-columns: 0.8fr 1.2fr;
+  gap: 70px;
+}
+
+.why-list {
+  display: grid;
+  gap: 18px;
+}
+
+.why-item {
+  padding: 25px 0;
+  border-bottom: 1px solid #d8d4cd;
+  display: flex;
+  justify-content: space-between;
+  gap: 30px;
+}
+
+.why-item strong {
+  font-size: 21px;
+}
+
+.why-item span {
+  opacity: 0.6;
+  max-width: 430px;
+  line-height: 1.5;
+}
+
+.contact {
+  background: #171717;
+  color: white;
+  min-height: 70vh;
+  display: flex;
+  align-items: center;
+}
+
+.contact h2 {
+  font-size: clamp(50px, 9vw, 120px);
+  line-height: 0.9;
+  letter-spacing: -6px;
+  margin-bottom: 35px;
+}
+
+.contact p {
+  opacity: 0.65;
+  max-width: 550px;
+  line-height: 1.6;
+  margin-bottom: 30px;
+}
+
+.contact-links {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.contact-links a {
+  border-bottom: 1px solid rgba(255,255,255,0.5);
+  padding-bottom: 5px;
+}
+
+footer {
+  background: #171717;
+  color: white;
+  padding: 25px 7%;
+  border-top: 1px solid #333;
+  font-size: 12px;
+  opacity: 0.6;
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(35px);
+  transition: opacity 0.9s ease, transform 0.9s ease;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (max-width: 800px) {
+
+  nav {
+    padding: 18px 5%;
+  }
+
+  .nav-links {
+    display: none;
+  }
+
+  section {
+    padding: 85px 6%;
+  }
+
+  .hero {
+    grid-template-columns: 1fr;
+    padding-top: 110px;
+    min-height: auto;
+  }
+
+  .hero h1 {
+    font-size: 62px;
+    letter-spacing: -4px;
+  }
+
+  .hero-visual {
+    height: 470px;
+    margin-top: 10px;
+  }
+
+  .orb {
+    width: 320px;
+    height: 320px;
+  }
+
+  .hero-video {
+    width: 190px;
+    height: 380px;
+  }
+
+  .card-one {
+    right: 3%;
+    top: 55px;
+  }
+
+  .card-two {
+    left: 3%;
+    bottom: 60px;
+  }
+
+  .services-grid,
+  .work-grid,
+  .why {
+    grid-template-columns: 1fr;
+  }
+
+  .why {
+    gap: 40px;
+  }
+
+  .contact h2 {
+    letter-spacing: -4px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<nav>
+  <div class="logo">HAPPINESS CHISOM</div>
+
+  <div class="nav-links">
+    <a href="#about">About</a>
+    <a href="#services">Services</a>
+    <a href="#work">Work</a>
+    <a href="#contact">Contact</a>
+  </div>
+</nav>
+
+<section class="hero">
+
+  <div class="hero-text reveal">
+    <div class="eyebrow">Virtual Assistant · Remote Support</div>
+
+    <h1>
+      Happiness
+      <span>Chisom.</span>
+    </h1>
+
+    <div class="hero-subtitle">
+      Your work, organized. Your time, protected.
+    </div>
+
+    <p class="hero-description">
+      I help busy professionals and businesses stay organized,
+      communicate effectively, and keep everyday operations moving.
+    </p>
+
+    <div class="buttons">
+      <a class="btn primary" href="#work">View My Work</a>
+      <a class="btn" href="#contact">Let's Work Together</a>
+    </div>
+  </div>
+
+  <div class="hero-visual reveal">
+
+    <div class="orb"></div>
+
+    <video class="hero-video" autoplay muted loop playsinline>
+      <source src="hero-character.mp4" type="video/mp4">
+    </video>
+
+    <div class="floating-card card-one">
+      ✓ Calendar organized
+    </div>
+
+    <div class="floating-card card-two">
+      ✉ Inbox managed
+    </div>
+
+  </div>
+
+</section>
+
+<section id="about" class="about">
+  <div class="about-content reveal">
+
+    <div class="section-label">01 · About Me</div>
+
+    <h2 class="section-title">
+      Making busy work feel a little less busy.
+    </h2>
+
+    <p>
+      I'm Happiness Chisom, a tech-savvy and organized Virtual Assistant
+      who enjoys turning busy, scattered workflows into systems that are
+      easier to manage.
+      <br><br>
+      I support businesses and professionals with administrative tasks,
+      communication, research, scheduling, documentation, data management,
+      and day-to-day organization.
+    </p>
+
+  </div>
+</section>
+
+<section id="services">
+
+  <div class="reveal">
+    <div class="section-label">02 · Services</div>
+
+    <h2 class="section-title">
+      Things I can take off your plate.
+    </h2>
+  </div>
+
+  <div class="services-grid">
+
+    <div class="service reveal">
+      <div class="service-number">01</div>
+      <h3>Administrative Support</h3>
+      <p>
+        Calendar management, appointment scheduling, meeting coordination,
+        documentation and task tracking.
+      </p>
+    </div>
+
+    <div class="service reveal">
+      <div class="service-number">02</div>
+      <h3>Email & Communication</h3>
+      <p>
+        Inbox organization, email responses, client enquiries,
+        follow-ups and professional correspondence.
+      </p>
+    </div>
+
+    <div class="service reveal">
+      <div class="service-number">03</div>
+      <h3>Research & Information</h3>
+      <p>
+        Online research, vendor research, information gathering,
+        comparison and basic business research.
+      </p>
+    </div>
+
+    <div class="service reveal">
+      <div class="service-number">04</div>
+      <h3>Data & Organization</h3>
+      <p>
+        Data entry, spreadsheets, file organization, Google Drive
+        management and record keeping.
+      </p>
+    </div>
+
+  </div>
+
+</section>
+
+<section id="work" class="work">
+
+  <div class="reveal">
+    <div class="section-label">03 · Selected Work</div>
+
+    <h2 class="section-title">
+      Proof of what I can do.
+    </h2>
+  </div>
+
+  <div class="work-grid">
+
+    <div class="work-card reveal">
+      <div>
+        <div class="section-label">Calendar Management</div>
+        <h3>Keeping schedules under control.</h3>
+        <p>
+          Coordinating appointments, meetings, reminders and schedule changes
+          so important commitments don't get lost.
+        </p>
+      </div>
+
+      <div class="mock-interface">
+        <div class="mock-line"></div>
+        <div class="mock-line short"></div>
+        <div class="mock-line"></div>
+      </div>
+    </div>
+
+    <div class="work-card reveal">
+      <div>
+        <div class="section-label">Inbox Support</div>
+        <h3>Making email easier to manage.</h3>
+        <p>
+          Organizing communication, identifying priorities and making sure
+          follow-ups don't disappear inside a busy inbox.
+        </p>
+      </div>
+
+      <div class="mock-interface">
+        <div class="mock-line short"></div>
+        <div class="mock-line"></div>
+        <div class="mock-line"></div>
+      </div>
+    </div>
+
+    <div class="work-card reveal">
+      <div>
+        <div class="section-label">File Organization</div>
+        <h3>Turning scattered files into systems.</h3>
+        <p>
+          Creating logical folder structures, consistent naming systems
+          and easier access to important documents.
+        </p>
+      </div>
+
+      <div class="mock-interface">
+        <div class="mock-line"></div>
+        <div class="mock-line short"></div>
+        <div class="mock-line"></div>
+      </div>
+    </div>
+
+    <div class="work-card reveal">
+      <div>
+        <div class="section-label">Research</div>
+        <h3>Finding the information you need.</h3>
+        <p>
+          Researching vendors, contacts, pricing and useful information
+          and organizing findings into clear, usable information.
+        </p>
+      </div>
+
+      <div class="mock-interface">
+        <div class="mock-line short"></div>
+        <div class="mock-line"></div>
+        <div class="mock-line"></div>
+      </div>
+    </div>
+
+  </div>
+
+</section>
+
+<section>
+
+  <div class="reveal">
+    <div class="section-label">04 · Tools</div>
+
+    <h2 class="section-title">
+      Comfortable inside tools your business already uses.
+    </h2>
+  </div>
+
+  <div class="tools-grid reveal">
+
+    <div class="tool">Google Docs</div>
+    <div class="tool">Google Sheets</div>
+    <div class="tool">Google Drive</div>
+    <div class="tool">Google Calendar</div>
+    <div class="tool">Microsoft Office</div>
+    <div class="tool">Trello</div>
+    <div class="tool">ClickUp</div>
+    <div class="tool">Asana</div>
+    <div class="tool">Monday.com</div>
+    <div class="tool">Slack</div>
+    <div class="tool">Zoom</div>
+    <div class="tool">Google Meet</div>
+    <div class="tool">Microsoft Teams</div>
+    <div class="tool">Dropbox</div>
+    <div class="tool">OneDrive</div>
+    <div class="tool">ChatGPT</div>
+    <div class="tool">Claude</div>
+    <div class="tool">Gemini</div>
+    <div class="tool">Canva</div>
+
+  </div>
+
+</section>
+
+<section>
+
+  <div class="why">
+
+    <div class="reveal">
+      <div class="section-label">05 · Why Me</div>
+
+      <h2 class="section-title">
+        More than someone who just checks boxes.
+      </h2>
+    </div>
+
+    <div class="why-list">
+
+      <div class="why-item reveal">
+        <strong>Organized</strong>
+        <span>I keep information, tasks and schedules structured.</span>
+      </div>
+
+      <div class="why-item reveal">
+        <strong>Proactive</strong>
+        <span>I look ahead, identify what needs attention and communicate clearly.</span>
+      </div>
+
+      <div class="why-item reveal">
+        <strong>Reliable</strong>
+        <span>You can trust me to take ownership of assigned work.</span>
+      </div>
+
+      <div class="why-item reveal">
+        <strong>Tech-Savvy</strong>
+        <span>I adapt quickly to new tools and remote workflows.</span>
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+<section id="contact" class="contact">
+
+  <div class="reveal">
+
+    <div class="section-label">06 · Contact</div>
+
+    <h2>
+      Ready to get<br>
+      some time back?
+    </h2>
+
+    <p>
+      If you're looking for a reliable Virtual Assistant to help organize
+      your workload and keep things moving, I'd love to hear from you.
+    </p>
+
+    <div class="contact-links">
+
+      <a href="mailto:happinesschisom136@gmail.com">
+        happinesschisom136@gmail.com
+      </a>
+
+      <a href="tel:08028007720">
+        08028007720
+      </a>
+
+      <a href="https://www.linkedin.com/in/onyebuchi-happiness/" target="_blank">
+        LinkedIn
+      </a>
+
+    </div>
+
+  </div>
+
+</section>
+
+<footer>
+  © 2026 Happiness Chisom · Virtual Assistant
+</footer>
+
+<script>
+const observer = new IntersectionObserver((entries) => {
+
+  entries.forEach(entry => {
+
+    if (entry.isIntersecting) {
+      entry.target.classList.add("visible");
+    }
+
+  });
+
+}, {
+  threshold: 0.12
+});
+
+document.querySelectorAll(".reveal").forEach(el => {
+  observer.observe(el);
+});
+</script>
+
+</body>
+</html>
